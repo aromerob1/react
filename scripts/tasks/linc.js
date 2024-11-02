@@ -23,4 +23,17 @@ async function main() {
   }
 }
 
+async function main1() {
+  console.log('Linting changed files...');
+
+  const {_, ...cliOptions} = minimist(process.argv.slice(2));
+
+  if (await runESLint({onlyChanged: true, ...cliOptions})) {
+    console.log('Lint passed for changed files.');
+  } else {
+    console.log('Lint failed for changed files.');
+    process.exit(1);
+  }
+}
+
 main();
